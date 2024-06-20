@@ -10,6 +10,11 @@ public class FriendCircleController {
 
     }
 
+    @PostMapping("/friend_circle")
+    void createFriendsCircle(){
+
+    }
+
     @GetMapping("/friend_circle")
     void getFriendsCircle(){
 
