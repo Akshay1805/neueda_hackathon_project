@@ -2,26 +2,32 @@ package com.BankApp.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController("/friend_circle")
 public class FriendCircleController {
 
-    @PostMapping("/friend_circle")
-    void addFriendsCircle(){
+    @PostMapping("/add")
+    void addFriendsCircle(){ //add to a group
 
     }
 
-    @PostMapping("/friend_circle")
-    void createFriendsCircle(){
+    @PostMapping("/create")
+    void createFriendsCircle(){ //create new group
 
     }
 
-    @GetMapping("/friend_circle")
-    void getFriendsCircle(){
+    @GetMapping("/get")
+    void getFriendsCircle(){ // get what he is member of
 
     }
 
-    @PostMapping("/friend_circle")
-    void removeFriendsCircle(){
+    @PostMapping("/remove")
+    void removeFriendsCircle(){ // remove from group
+
+    }
+    @PostMapping("/delete")
+    void deleteFriendsCircle(){ //delete a gropu
 
     }
 }
