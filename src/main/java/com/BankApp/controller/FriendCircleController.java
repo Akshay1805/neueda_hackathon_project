@@ -1,46 +1,47 @@
 package com.BankApp.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.web.bind.annotation.*;
 
-@RestController()
+@RestController
 @RequestMapping("/friend_circle")
 public class FriendCircleController {
 
+    @Operation(summary = "Add User to Friend Circle", description = "Adds a new user to an existing Friend Circle.Returns msg")
     @PostMapping("/add")
-    String addToFriendsCircle(String userID,String groupID,String newUserID){ //add to a friend circle
-
-        return "sgb";
+    public String addToFriendsCircle(String userID, String groupID, String newUserID) {
+        return "User " + newUserID + " added to Friend Circle " + groupID + " of user " + userID;
     }
 
+    @Operation(summary = "Create New Friend Circle", description = "Creates a new Friend Circle with the specified owner and members.Returns groupID")
     @PostMapping("/create")
-    void createFriendsCircle(String ownerUserID, String[] memUserIDs){ //create new friend circle
-
+    public void createFriendsCircle(String ownerUserID, @ArraySchema(schema = @Schema(type = "string")) String[] memUserIDs) {
     }
 
+    @Operation(summary = "List Friend Circles", description = "Lists all Friend Circles that the specified user is a member of.Return List of groupIDs ")
     @GetMapping("/list")
-    void listFriendsCircle(String userID){ // get friends circle he is member of
-
+    public void listFriendsCircle(String userID) {
     }
 
+    @Operation(summary = "List Members of Friend Circle", description = "Lists all members of a specified Friend Circle.Returns List of UserIDs")
     @GetMapping("/list-member")
-    void listMemFriendsCircle(String userID,String groupID){ // get members of friends circle
-
+    public void listMemFriendsCircle(String userID, String groupID) {
     }
 
+    @Operation(summary = "Remove User from Friend Circle", description = "Removes a user from a specified Friend Circle.Returns msg")
     @PostMapping("/remove")
-    void removeFriendsCircle(String userID,String groupID,String removeUserID){ // remove a user from group
-
+    public void removeFriendsCircle(String userID, String groupID, String removeUserID) {
     }
+
+    @Operation(summary = "Delete Friend Circle", description = "Deletes a specified Friend Circle.Returns msg")
     @PostMapping("/delete")
-    void deleteFriendsCircle(String userID,String groupID){ //delete a gropu
-
+    public void deleteFriendsCircle(String userID, String groupID) {
     }
 
+    @Operation(summary = "Leave Friend Circle", description = "Allows a user to leave a specified Friend Circle.Returns msg")
     @PostMapping("/leave")
-    void leaveFriendsCircle(String userID,String groupID){ //leave a circle
-
+    public void leaveFriendsCircle(String userID, String groupID) {
     }
 }
