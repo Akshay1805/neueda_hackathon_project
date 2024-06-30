@@ -2,32 +2,45 @@ package com.BankApp.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/friend_circle")
+@RestController()
+@RequestMapping("/friend_circle")
 public class FriendCircleController {
 
     @PostMapping("/add")
-    void addFriendsCircle(){ //add to a group
+    String addToFriendsCircle(String userID,String groupID,String newUserID){ //add to a friend circle
 
+        return "sgb";
     }
 
     @PostMapping("/create")
-    void createFriendsCircle(){ //create new group
+    void createFriendsCircle(String ownerUserID, String[] memUserIDs){ //create new friend circle
 
     }
 
-    @GetMapping("/get")
-    void getFriendsCircle(){ // get what he is member of
+    @GetMapping("/list")
+    void listFriendsCircle(String userID){ // get friends circle he is member of
+
+    }
+
+    @GetMapping("/list-member")
+    void listMemFriendsCircle(String userID,String groupID){ // get members of friends circle
 
     }
 
     @PostMapping("/remove")
-    void removeFriendsCircle(){ // remove from group
+    void removeFriendsCircle(String userID,String groupID,String removeUserID){ // remove a user from group
 
     }
     @PostMapping("/delete")
-    void deleteFriendsCircle(){ //delete a gropu
+    void deleteFriendsCircle(String userID,String groupID){ //delete a gropu
+
+    }
+
+    @PostMapping("/leave")
+    void leaveFriendsCircle(String userID,String groupID){ //leave a circle
 
     }
 }
