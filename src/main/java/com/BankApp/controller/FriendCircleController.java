@@ -4,6 +4,7 @@ import com.BankApp.entity.CircleRelation;
 import com.BankApp.entity.FriendCircle;
 import com.BankApp.request.AddUserToCircleRequest;
 import com.BankApp.request.CreateFriendCircleRequest;
+import com.BankApp.response.FriendCircleResponse;
 import com.BankApp.service.CommonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -39,9 +40,9 @@ public class FriendCircleController {
     @Operation(summary = "Create New Friend Circle", description = "Creates a new Friend Circle with the specified owner and members.Returns groupID")
     /*
     {
-        "admin_user_id": "5",
-        "circle_name": "Lonawala Trip",
-        "circle_category": "Trip",
+        "admin_user_id": "7",
+        "circle_name": "Goa Trip",
+        "circle_category": "Trip"
     }
     */
     @PostMapping("/create")
@@ -54,6 +55,20 @@ public class FriendCircleController {
     @GetMapping("/list")
     public List<FriendCircle> listFriendsCircle(String userID) {
         return commonService.getAllFriendCircles();
+    }
+
+    @Operation(summary = "Get Friend Circle Details", description = "Lists all Details of the specific friend circle. ")
+    /*
+    {
+        "friend_circle_id": 5,
+        "circle_name": "Hukka Party",
+        "circle_category": "Party"
+    }
+    */
+    @GetMapping("/id/{id}")
+    public FriendCircleResponse listFriendsCircle(@PathVariable Long id) {
+        FriendCircle friendCircle = commonService.getFriendCircleById(id).get();
+        return new FriendCircleResponse(friendCircle);
     }
 
     @Operation(summary = "List Members of Friend Circle", description = "Lists all members of a specified Friend Circle.Returns List of UserIDs")

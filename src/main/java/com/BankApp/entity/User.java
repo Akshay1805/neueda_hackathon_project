@@ -5,6 +5,7 @@ import com.BankApp.request.CreateUserRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,8 +28,8 @@ public class User {
     private String upiId;
 
     // One-to-many relationship with CircleRelation
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CircleRelation> circleRelations;
+    @OneToMany(mappedBy = "user")
+    private List<CircleRelation> circleRelations;
 
     // constructor for User from createUserResponse
     public User(CreateUserRequest createUserRequest) {

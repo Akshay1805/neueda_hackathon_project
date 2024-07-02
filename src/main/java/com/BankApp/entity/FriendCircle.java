@@ -28,8 +28,8 @@ public class FriendCircle {
     private Date createdOn;
 
     // One-to-many relationship with CircleRelation
-    @OneToMany(mappedBy = "friendCircle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CircleRelation> circleRelations;
+    @OneToMany(mappedBy = "friendCircle")
+    private List<CircleRelation> circleRelations;
 
     // constructor for FriendCircle from createFriendCircleRequest
     public FriendCircle(CreateFriendCircleRequest createFriendCircleRequest) {

@@ -47,13 +47,19 @@ public class CommonService {
     }
 
     public CircleRelation createFriendCircle(CreateFriendCircleRequest createFriendCircleRequest) {
+        // date set
         Date date = new Date();
         createFriendCircleRequest.setCreatedOn(date);
+        // friend circle saving
         FriendCircle friendCircle = new FriendCircle(createFriendCircleRequest);
         friendCircle = friendCircleRepository.save(friendCircle);
+
         CircleRelation circleRelation = new CircleRelation();
         circleRelation.setCircleId(friendCircle.getCircleId());
         circleRelation.setUserId(createFriendCircleRequest.getAdminUserId());
+        circleRelation.setFriendCircle(friendCircle);
+        User user = getUserById(createFriendCircleRequest.getAdminUserId()).get();
+        circleRelation.setUser(user);
         // combinedId = circleId + adminUserId
         circleRelation.setUserCircleCombinedId(friendCircle.getCircleId()+createFriendCircleRequest.getAdminUserId());
         circleRelation = circleRelationRepository.save(circleRelation);
