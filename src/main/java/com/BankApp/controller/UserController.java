@@ -93,5 +93,39 @@ public class UserController
         return new UserResponse(optionalUser.get());
     }
 
-
+    @Operation(summary = "List Members of Friend Circle", description = "Lists all members of a specified Friend Circle.Returns List of UserIDs")
+    /*
+    [
+        {
+            "user_id": 7,
+            "first_name": "Akshay",
+            "last_name": "Perison",
+            "email": "akshay@gmail.com",
+            "upi_id": "akshay@icici"
+        },
+        {
+            "user_id": 8,
+            "first_name": "Krishna",
+            "last_name": "Kumar",
+            "email": "krishna@gmail.com",
+            "upi_id": "krishna@icici"
+        },
+        {
+            "user_id": 9,
+            "first_name": "Simran",
+            "last_name": "Desai",
+            "email": "simran@gmail.com",
+            "upi_id": "simran@icici"
+        }
+    ]
+     */
+    @GetMapping("/list-members-of-circle/{id}")
+    public List<UserResponse> listMembersOfFriendsCircle(@PathVariable long id) {
+        List<User> userList = commonService.getAllUsersWhoArePartOfThisCircle(id);
+        List<UserResponse> userResponseList = new ArrayList<>();
+        userList.forEach(user -> {
+            userResponseList.add(new UserResponse(user));
+        });
+        return userResponseList;
+    }
 }

@@ -9,6 +9,7 @@ import com.BankApp.repository.UserRepository;
 import com.BankApp.request.AddUserToCircleRequest;
 import com.BankApp.request.CreateFriendCircleRequest;
 import com.BankApp.request.CreateUserRequest;
+import com.BankApp.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +72,10 @@ public class CommonService {
         circleRelation.setCircleId(addUserToCircleRequest.getFriendCircleId());
         circleRelation.setUserId(addUserToCircleRequest.getNewUserId());
         circleRelation.setUserCircleCombinedId(addUserToCircleRequest.getFriendCircleId()+addUserToCircleRequest.getNewUserId());
+        FriendCircle friendCircle = getFriendCircleById(circleRelation.getCircleId()).get();
+        User user = getUserById(circleRelation.getUserId()).get();
+        circleRelation.setUser(user);
+        circleRelation.setFriendCircle(friendCircle);
         circleRelation = circleRelationRepository.save(circleRelation);
         return circleRelation;
     }
@@ -85,7 +90,10 @@ public class CommonService {
 
 
     public List<User> getAllUsersWhoArePartOfThisCircle(long circle_id) {
-        List<Long> userIdsList = friendCircleRepository.findUserIdsByCircleId(circle_id);
-        return userRepository.getUsersByUserIdIsIn(userIdsList);
+        return userRepository.findUserByCircleId(circle_id);
+    }
+
+    public List<FriendCircle> getAllFriendCircleOfWhichYouArePartOf(long user_id) {
+        return friendCircleRepository.findCirclesByUserId(user_id);
     }
 }

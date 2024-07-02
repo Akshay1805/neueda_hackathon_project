@@ -13,8 +13,6 @@ import java.util.List;
 @Repository
 public interface FriendCircleRepository extends JpaRepository<FriendCircle, Long> {
 
-    @Query("SELECT cr.userId FROM CircleRelation cr WHERE cr.circleId = :circleId")
-    List<Long> findUserIdsByCircleId(@Param("circleId") long circleId);
-
-    List<FriendCircle> getFriendCircleByCircleIdIsIn(List<Long> friendCircleIds);
+    @Query("SELECT fc FROM FriendCircle fc JOIN CircleRelation cr ON fc.circleId = cr.friendCircle.circleId WHERE cr.user.userId = :userId")
+    List<FriendCircle> findCirclesByUserId(@Param("userId") long userId);
 }
