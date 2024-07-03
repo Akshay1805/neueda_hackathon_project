@@ -31,6 +31,9 @@ public class FriendCircle {
     @OneToMany(mappedBy = "friendCircle")
     private List<CircleRelation> circleRelations;
 
+    @OneToMany(mappedBy = "friendCircle")
+    private List<Transaction> transactionList;
+
     // constructor for FriendCircle from createFriendCircleRequest
     public FriendCircle(CreateFriendCircleRequest createFriendCircleRequest) {
         this.circleName = createFriendCircleRequest.getCircleName();
