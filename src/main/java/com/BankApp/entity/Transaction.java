@@ -1,6 +1,7 @@
 package com.BankApp.entity;
 
 
+import com.BankApp.request.CreateTransactionRequest;
 import com.BankApp.request.CreateUserRequest;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -44,5 +45,11 @@ public class Transaction {
     private FriendCircle friendCircle;
 
     // constructor for User from createUserResponse
-
+    public Transaction(CreateTransactionRequest createTransactionRequest) {
+        this.description = createTransactionRequest.getDescription();
+        this.category = createTransactionRequest.getCategory();
+        this.price = createTransactionRequest.getPrice();
+        this.userIdOfPayer = createTransactionRequest.getUserIdOfPayer();
+        this.groupId = createTransactionRequest.getGroupId();
+    }
 }

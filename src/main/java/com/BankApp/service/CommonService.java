@@ -1,10 +1,7 @@
 package com.BankApp.service;
 
 import com.BankApp.entity.*;
-import com.BankApp.repository.CircleRelationRepository;
-import com.BankApp.repository.FriendCircleRepository;
-import com.BankApp.repository.SettlementRepository;
-import com.BankApp.repository.UserRepository;
+import com.BankApp.repository.*;
 import com.BankApp.request.AddUserToCircleRequest;
 import com.BankApp.request.CreateFriendCircleRequest;
 import com.BankApp.request.CreateTransactionRequest;
@@ -27,6 +24,8 @@ public class CommonService {
     CircleRelationRepository circleRelationRepository;
     @Autowired
     SettlementRepository settlementRepository;
+    @Autowired
+    TransactionRepository transactionRepository;
 
     public User createUserProfile(CreateUserRequest createUserRequest) {
         int n = getAllUsers().size();
@@ -135,23 +134,34 @@ public class CommonService {
         // get all the settlement where paid user is involved
         long payerUserId = createTransactionRequest.getUserIdOfPayer();
         HashMap<Long, Double> distributionMap = createTransactionRequest.getDistributionList();
+        FriendCircle friendCircle = getFriendCircleById(createTransactionRequest.getGroupId()).get();
         List<Settlement> settlements = settlementRepository.findAllByUserIdOfXOrUserIdOfY(payerUserId, payerUserId);
         settlements.forEach(settlement -> {
             long ux = settlement.getUserIdOfX();
             long uy = settlement.getUserIdOfY();
-            if(ux == payerUserId) {
-                Double amount = distributionMap.get(uy);
-                settlement.setXBalance(settlement.getXBalance()+amount);
-                settlement.setYBalance(settlement.getYBalance()-amount);
-                addSettlements(settlement);
-            } else {
-                Double amount = distributionMap.get(ux);
-                settlement.setXBalance(settlement.getXBalance()-amount);
-                settlement.setYBalance(settlement.getYBalance()+amount);
-                addSettlements(settlement);
+            long groupId = settlement.getGroupId();
+            if(groupId == createTransactionRequest.getGroupId()) {
+                if(ux == payerUserId) {
+                    Double amount = distributionMap.get(uy);
+                    settlement.setXBalance(settlement.getXBalance()+amount);
+                    settlement.setYBalance(settlement.getYBalance()-amount);
+                    addSettlements(settlement);
+                } else {
+                    Double amount = distributionMap.get(ux);
+                    settlement.setXBalance(settlement.getXBalance()-amount);
+                    settlement.setYBalance(settlement.getYBalance()+amount);
+                    addSettlements(settlement);
+                }
             }
         });
-        return new Transaction();
+        int n = transactionRepository.findAll().size();
+        Transaction transaction = new Transaction(createTransactionRequest);
+        transaction.setTransactionId(n+1);
+        transaction.setFriendCircle(friendCircle);
+        Date date = new Date();
+        transaction.setPaymentDate(date);
+        transaction = transactionRepository.save(transaction);
+        return transaction;
     }
     public Settlement addSettlements(Settlement settlement) {;
         return settlementRepository.save(settlement);

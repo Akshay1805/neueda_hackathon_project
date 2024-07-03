@@ -23,11 +23,18 @@ public class TransactionController {
     @Operation(summary = "Add User to Friend Circle", description = "Adds a new user to an existing Friend Circle.Returns msg")
     /*
     {
-        "description": "Paid to Halka Fulka for paratha",
+        "description": "Paid to Kitchen Bites for paratha",
         "category": "Food",
-        "price": 120,
-        "user_id_of_payer": 8,
-        "group_id": 5,
+        "price": 10000,
+        "user_id_of_payer": 2,
+        "group_id": 3,
+        "contributions": {
+            "1": 1000,
+            "2": 2000,
+            "3": 4000,
+            "4": 2000,
+            "5": 1000
+        }
     }
     */
     @PostMapping("/create")
