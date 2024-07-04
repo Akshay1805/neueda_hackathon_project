@@ -40,9 +40,14 @@ public class Transaction {
     private Long groupId;
 
     // One-to-many relationship with CircleRelation
+    @OneToMany(mappedBy = "transaction")
+    private List<Contribution> contributionList;
+
+    // many-to-one relationship with CircleRelation
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private FriendCircle friendCircle;
+
 
     // constructor for User from createUserResponse
     public Transaction(CreateTransactionRequest createTransactionRequest) {
@@ -51,5 +56,14 @@ public class Transaction {
         this.price = createTransactionRequest.getPrice();
         this.userIdOfPayer = createTransactionRequest.getUserIdOfPayer();
         this.groupId = createTransactionRequest.getGroupId();
+    }
+
+    public Transaction(Transaction transaction)  {
+        this.transactionId = transaction.getTransactionId();
+        this.description = transaction.getDescription();
+        this.category = transaction.getCategory();
+        this.price = transaction.getPrice();
+        this.userIdOfPayer = transaction.getUserIdOfPayer();
+        this.groupId = transaction.getGroupId();
     }
 }
