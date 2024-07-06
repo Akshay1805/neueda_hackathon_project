@@ -133,7 +133,8 @@ public class FriendCircleController {
 
     @Operation(summary = "Delete Friend Circle", description = "Deletes a specified Friend Circle.Returns msg")
     @PostMapping("/delete")
-    public void deleteFriendsCircle(String userID, String groupID) {
+    public boolean deleteFriendsCircle(long groupID) {
+        return commonService.deleteFriendCircle(groupID);
     }
 
     @Operation(summary = "Leave Friend Circle", description = "Allows a user to leave a specified Friend Circle.Returns msg")

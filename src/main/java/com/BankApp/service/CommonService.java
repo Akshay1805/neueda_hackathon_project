@@ -55,6 +55,17 @@ public class CommonService {
         return false;
     }
 
+    public boolean deleteFriendCircle(long circleID){
+
+        int count = circleRelationRepository.deleteByCircleId(circleID);
+        if(count>0){
+            return true;
+        }
+        return false;
+    }
+
+
+
     public User FetchUserByEmail(String email){
         User user = userRepository.findUserByEmail(email);
         if(user!=null){

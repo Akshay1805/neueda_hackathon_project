@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface CircleRelationRepository extends JpaRepository<CircleRelation, Long> {
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM CircleRelation cr WHERE cr.friendCircle.circleId = :circleId")
+    int deleteByCircleId(@Param("circleId") long circleId);
 
     @Modifying
     @Transactional
