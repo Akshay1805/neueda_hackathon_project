@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
-@ComponentScan({"com.BankApp.controller", "com.BankApp.service","com.BankApp.repository" })
+@ComponentScan({"com.BankApp.controller", "com.BankApp.service","com.BankApp.repository","com.BankApp.config" })
 @EnableJpaRepositories({"com.BankApp.repository"})
 @EntityScan("com.BankApp.entity")
 //@EnableSwagger2

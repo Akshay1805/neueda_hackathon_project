@@ -1,4 +1,6 @@
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\BankAppApplication.java
+D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\config\CorsConfig.java
+D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\config\SecurityConfig.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\controller\FriendCircleController.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\controller\TransactionController.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\controller\UserController.java
@@ -18,6 +20,7 @@ D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\request\AddUserToCi
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\request\CreateFriendCircleRequest.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\request\CreateTransactionRequest.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\request\CreateUserRequest.java
+D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\request\VerifyUserRequest.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\response\FriendCircleResponse.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\response\UserResponse.java
 D:\college\neuda_hackathon\BankApp\src\main\java\com\BankApp\service\CommonService.java

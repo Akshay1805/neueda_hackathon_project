@@ -22,5 +22,8 @@ public class CreateUserRequest {
     @JsonProperty("upi_id")
     private String upiId;
 
+    @JsonProperty("password")
+    private String password;
+
 }
 

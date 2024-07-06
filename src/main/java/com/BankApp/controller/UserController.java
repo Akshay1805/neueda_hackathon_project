@@ -2,6 +2,7 @@ package com.BankApp.controller;
 
 
 
+import com.BankApp.request.VerifyUserRequest;
 import com.BankApp.response.UserResponse;
 import com.BankApp.entity.User;
 import com.BankApp.request.CreateUserRequest;
@@ -36,6 +37,21 @@ public class UserController
         // if user == null => user couldn't be created
         // if user != null  => user is created successfully
         return user!=null;
+    }
+
+    @Operation(summary = "verify a  User")
+    /*
+    {
+        "first_name": "Krishna",
+        "last_name": "Kumar",
+        "email": "kris@gmail.com",
+        "upi_id": "kris@icici"
+    }
+    */
+    @PostMapping("/verify")
+    public boolean verifyUser(@RequestBody VerifyUserRequest verifyUserRequest){
+
+        return commonService.verifyUser(verifyUserRequest);
     }
 
     @Operation(summary = "Get list of users")

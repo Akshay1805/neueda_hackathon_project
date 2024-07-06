@@ -2,10 +2,7 @@ package com.BankApp.service;
 
 import com.BankApp.entity.*;
 import com.BankApp.repository.*;
-import com.BankApp.request.AddUserToCircleRequest;
-import com.BankApp.request.CreateFriendCircleRequest;
-import com.BankApp.request.CreateTransactionRequest;
-import com.BankApp.request.CreateUserRequest;
+import com.BankApp.request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +25,25 @@ public class CommonService {
     TransactionRepository transactionRepository;
     @Autowired
     ContributionRepository contributionRepository;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
 // creating the objects
     public User createUserProfile(CreateUserRequest createUserRequest) {
         User user = new User(createUserRequest);
         user.setUserId(getNextUserId());
+//        user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
+        user.setPassword(createUserRequest.getPassword());
         user = userRepository.save(user);
         return user;
+    }
+
+    public boolean verifyUser(VerifyUserRequest verifyUserRequest){
+        User user = userRepository.findUserByEmail(verifyUserRequest.getEmail());
+        if(user!=null){
+            return verifyUserRequest.getPassword().equals(user.getPassword());
+        }
+        return false;
     }
 
     public CircleRelation createFriendCircle(CreateFriendCircleRequest createFriendCircleRequest) {
