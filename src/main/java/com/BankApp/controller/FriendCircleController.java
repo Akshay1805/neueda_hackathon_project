@@ -116,9 +116,9 @@ public class FriendCircleController {
         }
     ]
      */
-    @GetMapping("/list-friend-circle-of-user/{id}")
-    public List<FriendCircleResponse> ListFriendCircleOfWhichCertainUserIsPartOf(@PathVariable long id) {
-        List<FriendCircle> friendCircleList = commonService.getAllFriendCircleOfWhichYouArePartOf(id);
+    @GetMapping("/list-friend-circle-of-user")
+    public List<FriendCircleResponse> ListFriendCircleOfWhichCertainUserIsPartOf(@RequestBody  long user_id) {
+        List<FriendCircle> friendCircleList = commonService.getAllFriendCircleOfWhichYouArePartOf(user_id);
         List<FriendCircleResponse> friendCircleResponses = new ArrayList<>();
         friendCircleList.forEach(friendCircle -> {
             friendCircleResponses.add(new FriendCircleResponse(friendCircle));
