@@ -101,7 +101,7 @@ public class FriendCircleController {
         return new FriendCircleResponse(friendCircle);
     }
 
-    @Operation(summary = "list specific Users Friends Circle", description = "Removes a user from a specified Friend Circle.Returns msg")
+    @Operation(summary = "list all  Friends Circle the User is part of")
     /*
     [
         {
