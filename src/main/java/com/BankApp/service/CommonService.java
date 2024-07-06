@@ -46,6 +46,14 @@ public class CommonService {
         return false;
     }
 
+    public User FetchUserByEmail(String email){
+        User user = userRepository.findUserByEmail(email);
+        if(user!=null){
+            return user;
+        }
+        return null ;
+    }
+
     public CircleRelation createFriendCircle(CreateFriendCircleRequest createFriendCircleRequest) {
         // date set
         Date date = new Date();
