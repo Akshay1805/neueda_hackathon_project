@@ -39,7 +39,7 @@ public class UserController
         return user!=null;
     }
 
-    @Operation(summary = "verify a  User")
+    @Operation(summary = "verify a  User(used for login)")
     /*
     {
         "first_name": "Krishna",
