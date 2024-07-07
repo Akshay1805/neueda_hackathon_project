@@ -74,6 +74,11 @@ public class CommonService {
         return null ;
     }
 
+    public List<Transaction> transactionList(Long circleId){
+        return transactionRepository.findByGroupId(circleId);
+    }
+
+
     public CircleRelation createFriendCircle(CreateFriendCircleRequest createFriendCircleRequest) {
         // date set
         Date date = new Date();

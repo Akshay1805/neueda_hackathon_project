@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/transaction/")
 public class TransactionController {
@@ -45,4 +47,8 @@ public class TransactionController {
         return  commonService.deleteTransaction(id);
     }
 
+    @GetMapping("/list/{id}")
+    public List<Transaction> transactionList(@PathVariable Long id) {
+        return commonService.transactionList(id);
+    }
 }
