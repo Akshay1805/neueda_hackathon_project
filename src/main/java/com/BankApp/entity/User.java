@@ -2,6 +2,7 @@ package com.BankApp.entity;
 
 
 import com.BankApp.request.CreateUserRequest;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,8 @@ public class User {
     private String email;
     @Column(name = "upi_id")
     private String upiId;
+    @Column(name = "password")
+    private String password;
 
     // One-to-many relationship with CircleRelation
     @OneToMany(mappedBy = "user")

@@ -2,12 +2,14 @@ package com.BankApp.controller;
 
 
 
+import com.BankApp.request.VerifyUserRequest;
 import com.BankApp.response.UserResponse;
 import com.BankApp.entity.User;
 import com.BankApp.request.CreateUserRequest;
 import com.BankApp.service.CommonService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,6 +38,21 @@ public class UserController
         // if user == null => user couldn't be created
         // if user != null  => user is created successfully
         return user!=null;
+    }
+
+    @Operation(summary = "verify a  User(used for login)")
+    /*
+    {
+        "first_name": "Krishna",
+        "last_name": "Kumar",
+        "email": "kris@gmail.com",
+        "upi_id": "kris@icici"
+    }
+    */
+    @PostMapping("/verify")
+    public boolean verifyUser(@RequestBody VerifyUserRequest verifyUserRequest){
+
+        return commonService.verifyUser(verifyUserRequest);
     }
 
     @Operation(summary = "Get list of users")
@@ -93,6 +110,15 @@ public class UserController
         return new UserResponse(optionalUser.get());
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponse> getUserByEmail(@PathVariable String email) {
+        User user = commonService.FetchUserByEmail(email);
+        if (user != null) {
+            return ResponseEntity.ok(new UserResponse(user));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @Operation(summary = "List Members of Friend Circle", description = "Lists all members of a specified Friend Circle.Returns List of UserIDs")
     /*
     [

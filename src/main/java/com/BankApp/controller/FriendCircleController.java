@@ -101,7 +101,7 @@ public class FriendCircleController {
         return new FriendCircleResponse(friendCircle);
     }
 
-    @Operation(summary = "list specific Users Friends Circle", description = "Removes a user from a specified Friend Circle.Returns msg")
+    @Operation(summary = "list all  Friends Circle the User is part of")
     /*
     [
         {
@@ -116,9 +116,9 @@ public class FriendCircleController {
         }
     ]
      */
-    @GetMapping("/list-friend-circle-of-user/{id}")
-    public List<FriendCircleResponse> ListFriendCircleOfWhichCertainUserIsPartOf(@PathVariable long id) {
-        List<FriendCircle> friendCircleList = commonService.getAllFriendCircleOfWhichYouArePartOf(id);
+    @GetMapping("/list-friend-circle-of-user/{user_id}")
+    public List<FriendCircleResponse> ListFriendCircleOfWhichCertainUserIsPartOf(@PathVariable  long user_id) {
+        List<FriendCircle> friendCircleList = commonService.getAllFriendCircleOfWhichYouArePartOf(user_id);
         List<FriendCircleResponse> friendCircleResponses = new ArrayList<>();
         friendCircleList.forEach(friendCircle -> {
             friendCircleResponses.add(new FriendCircleResponse(friendCircle));
@@ -133,12 +133,14 @@ public class FriendCircleController {
 
     @Operation(summary = "Delete Friend Circle", description = "Deletes a specified Friend Circle.Returns msg")
     @PostMapping("/delete")
-    public void deleteFriendsCircle(String userID, String groupID) {
+    public boolean deleteFriendsCircle(long groupID) {
+        return commonService.deleteFriendCircle(groupID);
     }
 
     @Operation(summary = "Leave Friend Circle", description = "Allows a user to leave a specified Friend Circle.Returns msg")
     @PostMapping("/leave")
-    public void leaveFriendsCircle(String userID, String groupID) {
-
+    public boolean leaveFriendsCircle(String userID, String groupID) {
+        System.out.println(userID+groupID);
+        return commonService.removeUserFromCircle(Integer.parseInt(userID),Integer.parseInt(groupID));
     }
 }
