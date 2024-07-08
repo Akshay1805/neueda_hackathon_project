@@ -193,6 +193,9 @@ public class CommonService {
     }
 
 
+    public List<Transaction> transactionList(Long circleId){
+        return transactionRepository.findByGroupId(circleId);
+    }
 
 // getting all the objects
     public List<User> getAllUsers() {
@@ -348,4 +351,19 @@ public class CommonService {
         return settlementRepository.save(settlement);
     }
 
+    public List<SettlementResponse> listSettlementOfSpecificGroupOfSpecificUser(Long userId, Long groupId) {
+        List<Settlement> settlementList = settlementRepository.findByGroupId(groupId);
+        List<SettlementResponse> settlementResponseList = new ArrayList<>();
+
+        settlementList.forEach(settlement -> {
+            if((userId==settlement.getUserIdOfX() || userId==settlement.getUserIdOfY()) && settlement.getXBalance()!=0) {
+                settlementResponseList.add(new SettlementResponse(settlement, userId));
+            }
+        });
+        System.out.println(settlementList.toString());
+        System.out.println(settlementResponseList.toString());
+        return settlementResponseList;
+    }
+
 }
+
