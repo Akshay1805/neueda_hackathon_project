@@ -13,4 +13,6 @@ public interface SettlementRepository extends JpaRepository<Settlement, Long> {
     Long findByGroupIdAndUserIdOfXAndUserIdOfY(Long groupId, Long UserIdX, Long UserIdY);
 
     List<Settlement> findByGroupId(Long groupId);
+
+
 }

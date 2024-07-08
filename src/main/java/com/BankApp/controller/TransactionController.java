@@ -5,10 +5,15 @@ import com.BankApp.entity.CircleRelation;
 import com.BankApp.entity.Transaction;
 import com.BankApp.request.AddUserToCircleRequest;
 import com.BankApp.request.CreateTransactionRequest;
+import com.BankApp.response.SettlementResponse;
+import com.BankApp.response.TransactionResponse;
 import com.BankApp.service.CommonService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/transaction/")
@@ -44,5 +49,40 @@ public class TransactionController {
     public boolean removeTransaction(@PathVariable Long id) {
         return  commonService.deleteTransaction(id);
     }
+    /*
+    [
+        {
+            "transactionId": 11,
+            "description": "Halka Fulka",
+            "category": "Food",
+            "price": 200.0,
+            "userIdOfPayer": 1,
+            "paymentDate": "2024-07-07T00:00:00.000+00:00",
+            "groupId": 12
+        },
+        {
+            "transactionId": 12,
+            "description": "Bowl",
+            "category": "Food",
+            "price": 200.0,
+            "userIdOfPayer": 1,
+            "paymentDate": "2024-07-07T00:00:00.000+00:00",
+            "groupId": 12
+        }
+    ]
+    */
+    @GetMapping("/list/{id}")
+    public List<TransactionResponse> transactionList(@PathVariable Long id) {
+        List<Transaction> list = commonService.transactionList(id);
+        List<TransactionResponse> responseList = new ArrayList<>();
+        list.forEach(transaction -> {
+            responseList.add(new TransactionResponse(transaction));
+        });
+        return responseList;
+    }
 
+    @GetMapping("/settlement/list/{groupId}/{userId}")
+    public List<SettlementResponse> listSettlementOfSpecificGroupOfSpecificUser(@PathVariable Long groupId, @PathVariable Long userId) {
+        return commonService.listSettlementOfSpecificGroupOfSpecificUser(userId, groupId);
+    }
 }

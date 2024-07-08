@@ -37,3 +37,16 @@ public class FriendCircleResponse {
         this.createdOn = friendCircle.getCreatedOn();
     }
 }
+
+
+/*
+{
+            "transactionId": 11,
+            "description": "Halka Fulka",
+            "category": "Food",
+            "price": 200.0,
+            "userIdOfPayer": 1,
+            "paymentDate": "2024-07-07T00:00:00.000+00:00",
+            "groupId": 12
+        }
+*/
